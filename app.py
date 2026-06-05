@@ -12,7 +12,7 @@ from data_loader import load_experimental_series
 # =============================================================================
 # PAGE CONFIGURATION
 # =============================================================================
-st.set_page_config(page_title="LDA/PDA Opto-Metrology Dashboard", layout="wide")
+st.set_page_config(page_title="Dashboard", layout="wide")
 
 DATA_FOLDER = "./exp_data"
 
