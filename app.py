@@ -45,7 +45,7 @@ tab1, tab2 = st.tabs(["Mode 1: Parametric", "Mode 2: Experimental data"])
 # MODE 1: PARAMETRIC GRIDS
 # -----------------------------------------------------------------------------
 with tab1:
-    st.header("Dynamic Sensitivity Analysis")
+    st.header("Dynamic variables")
     st.markdown("Select the variable to analyze (Z) and the two fluid parameters to vary (X and Y).")
     
     try:
@@ -139,7 +139,7 @@ with tab1:
 # MODE 2: EXPERIMENTAL AND SPATIAL BIAS
 # -----------------------------------------------------------------------------
 with tab2:
-    st.header("Experimental Spray Analysis (Spatial Mapping)")
+    st.header("Experimental data")
     st.markdown("Explore optical bias as a function of injector geometry.")
     
     MAPPING_SERIES = {
