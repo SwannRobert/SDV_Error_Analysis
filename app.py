@@ -108,7 +108,7 @@ with tab1:
                 
                 X, Y, Z = compute_dynamic_grid(
                     axis_x_name, vec_x, axis_y_name, vec_y, fixed_params, error_target, 
-                    IMAX=IMAX_m1, dt=dt, W=W, gamma=gamma, D_beam=D_beam, zdef=zdef_m1, ANG=ANG, 
+                    IMAX=IMAX_m1, dt=dt, W=W, gamma=gamma, D_beam=D_beam, zdef=zdef_m1, ANG=ANG, U_min=U_min,
                     size_d=size_d_m1, size_cdf=size_cdf_m1
                 )
                 
@@ -175,7 +175,7 @@ with tab2:
                 )
                 
                 _, _, _, acc = run_mode_2_zdef_sweep(
-                    [zdef_single], UI, VI, dp, y0_norm, dt=dt, W=W, gamma=gamma, D_beam=D_beam, ANG=ANG
+                    [zdef_single], UI, VI, dp, y0_norm, dt=dt, W=W, gamma=gamma, D_beam=D_beam, ANG=ANG, U_min=U_min
                 )
                 
                 # TRUE STATISTICS
@@ -270,7 +270,7 @@ with tab2:
                 for s_id in series_axe_central:
                     sd, scdf, pm, ph, pl, pam, pah, pal = load_experimental_series(DATA_FOLDER, s_id)
                     UI_c, VI_c, dp_c, y0_c = generate_experimental_fluid(30000, sd, scdf, pm, ph, pl, pam, pah, pal)
-                    _, _, _, acc_c = run_mode_2_zdef_sweep([zdef_single], UI_c, VI_c, dp_c, y0_c, dt=dt, W=W, gamma=gamma, D_beam=D_beam, ANG=ANG)
+                    _, _, _, acc_c = run_mode_2_zdef_sweep([zdef_single], UI_c, VI_c, dp_c, y0_c, dt=dt, W=W, gamma=gamma, D_beam=D_beam, ANG=ANG, U_min=U_min)
                     
                     if np.sum(acc_c) > 20:
                         U_ct, V_ct = np.mean(UI_c), np.mean(VI_c)
@@ -355,7 +355,7 @@ with tab2:
                     )
                     
                     _, _, _, acc_g = run_mode_2_zdef_sweep(
-                        [zdef_single], UI_g, VI_g, dp_g, y0_g, dt=dt, W=W, gamma=gamma, D_beam=D_beam, ANG=ANG
+                        [zdef_single], UI_g, VI_g, dp_g, y0_g, dt=dt, W=W, gamma=gamma, D_beam=D_beam, ANG=ANG,U_min=U_min
                     )
                     
                     # 1. GLOBAL STATISTICS
