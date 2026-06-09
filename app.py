@@ -27,7 +27,7 @@ W = st.sidebar.number_input("Slit width W (µm)", value=366.0)
 D_beam = st.sidebar.number_input("Beam diameter D_beam (µm)", value=265.0)
 gamma = st.sidebar.number_input("Scattering angle gamma (°)", value=4.5)
 ANG = st.sidebar.slider("Acceptance angle limit (°)", min_value=10, max_value=90, value=70)
-U_min = st.sidebar.slider("Minimum mesurable velocity (m/s)", min_value=0.0, max_value=0.5, value=0, step=0.01)
+U_min = st.sidebar.slider("Minimum mesurable velocity (m/s)", min_value=0.0, max_value=0.5, value=0.0, step=0.01)
 
 st.title("SDV Simulation - V1")
 st.markdown("---")
