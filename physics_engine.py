@@ -2,7 +2,7 @@ import numpy as np
 
 def compute_dynamic_grid(axis_x_name, vec_x, axis_y_name, vec_y, fixed_params, 
                          error_target, IMAX=1000, dt=98, W=366, gamma=4.5, 
-                         D_beam=265, zdef=0, ANG=70, size_d=None, size_cdf=None):
+                         D_beam=265, zdef=0, ANG=70, U_min=0.5, size_d=None, size_cdf=None):
     """
     Universal engine.
     Computes the requested error (error_target) by sweeping axis_x_name and axis_y_name.
@@ -57,7 +57,7 @@ def compute_dynamic_grid(axis_x_name, vec_x, axis_y_name, vec_y, fixed_params,
             
             is_clipped = (y_min_center - dp/2 < -W/2) | (y_max_center + dp/2 > W/2)
             
-            accepted =  (np.abs(UI) >= 0.5) & ((np.abs(VI) / (np.abs(UI) + 1e-8)) <= np.tan(np.radians(ANG))) & trigger_hit & ~is_clipped
+            accepted =  (np.abs(UI) >= U_min) & ((np.abs(VI) / (np.abs(UI) + 1e-8)) <= np.tan(np.radians(ANG))) & trigger_hit & ~is_clipped
             
             IACC = np.sum(accepted)
             
@@ -109,7 +109,7 @@ def generate_experimental_fluid(IMAX, size_d, size_cdf, p_mean, p_high, p_low,
     return UI, VI, dp, y0
 
 
-def run_mode_2_zdef_sweep(zdef_array, UI, VI, dp, y0_norm, dt=98, W=366, gamma=4.5, D_beam=265, ANG=70):
+def run_mode_2_zdef_sweep(zdef_array, UI, VI, dp, y0_norm, dt=98, W=366, gamma=4.5, D_beam=265, ANG=70, U_min=0.5):
     """
     Applies the optical filter on the SAME fluid for different zdef values.
     Returns absolute errors on U and V. 
@@ -136,7 +136,7 @@ def run_mode_2_zdef_sweep(zdef_array, UI, VI, dp, y0_norm, dt=98, W=366, gamma=4
                                      (y_max_center[valid_val] + d_dark/2 >= -dt/2)
                                      
         is_clipped = (y_min_center - dp/2 < -W/2) | (y_max_center + dp/2 > W/2)
-        accepted = (np.abs(UI) >= 0.5) & ((np.abs(VI) / (np.abs(UI) + 1e-8)) <= np.tan(np.radians(ANG))) & trigger_hit & ~is_clipped
+        accepted = (np.abs(UI) >= U_min) & ((np.abs(VI) / (np.abs(UI) + 1e-8)) <= np.tan(np.radians(ANG))) & trigger_hit & ~is_clipped
         
         IACC = np.sum(accepted)
         acc_rates[idx] = IACC / len(UI)
