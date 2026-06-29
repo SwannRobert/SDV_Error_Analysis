@@ -243,15 +243,15 @@ with tab2:
                 with col_scat2:
                     st.markdown("### 2D Scatter Plot")
                     fig2d = go.Figure()
-                    if np.any(rej_disp):
-                        fig2d.add_trace(go.Scatter(
-                            x=VI_disp[rej_disp], y=UI_disp[rej_disp],
-                            mode='markers', marker=dict(size=4, color='red', opacity=0.4), name="Rejected"
-                        ))
                     if np.any(acc_disp):
                         fig2d.add_trace(go.Scatter(
                             x=VI_disp[acc_disp], y=UI_disp[acc_disp],
                             mode='markers', marker=dict(size=4, color='green', opacity=0.8), name="Validated"
+                        ))
+                    if np.any(rej_disp):
+                        fig2d.add_trace(go.Scatter(
+                            x=VI_disp[rej_disp], y=UI_disp[rej_disp],
+                            mode='markers', marker=dict(size=4, color='red', opacity=0.8), name="Rejected"
                         ))
                     fig2d.update_layout(xaxis_title='Radial Velocity V (m/s)', yaxis_title='Axial Velocity U (m/s)', height=500, margin=dict(l=0, r=0, b=0, t=30))
                     st.plotly_chart(fig2d, use_container_width=True)
