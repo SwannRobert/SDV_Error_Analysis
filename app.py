@@ -227,16 +227,17 @@ with tab2:
                 with col_scat1:
                     st.markdown("### 3D Scatter Plot")
                     fig3d = go.Figure()
+                     if np.any(acc_disp):
+                        fig3d.add_trace(go.Scatter3d(
+                            x=UI_disp[acc_disp], y=VI_disp[acc_disp], z=dp_disp[acc_disp],
+                            mode='markers', marker=dict(size=3, color='green', opacity=0.9), name="Validated"
+                        ))
                     if np.any(rej_disp):
                         fig3d.add_trace(go.Scatter3d(
                             x=UI_disp[rej_disp], y=VI_disp[rej_disp], z=dp_disp[rej_disp],
                             mode='markers', marker=dict(size=2.5, color='red', opacity=0.4), name="Rejected"
                         ))
-                    if np.any(acc_disp):
-                        fig3d.add_trace(go.Scatter3d(
-                            x=UI_disp[acc_disp], y=VI_disp[acc_disp], z=dp_disp[acc_disp],
-                            mode='markers', marker=dict(size=3, color='green', opacity=0.9), name="Validated"
-                        ))
+                   
                     fig3d.update_layout(scene=dict(xaxis_title='U (m/s)', yaxis_title='V (m/s)', zaxis_title='dp (µm)'), height=500, margin=dict(l=0, r=0, b=0, t=30))
                     st.plotly_chart(fig3d, use_container_width=True)
 
