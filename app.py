@@ -227,7 +227,7 @@ with tab2:
                 with col_scat1:
                     st.markdown("### 3D Scatter Plot")
                     fig3d = go.Figure()
-                     if np.any(acc_disp):
+                    if np.any(acc_disp):
                         fig3d.add_trace(go.Scatter3d(
                             x=UI_disp[acc_disp], y=VI_disp[acc_disp], z=dp_disp[acc_disp],
                             mode='markers', marker=dict(size=3, color='green', opacity=0.9), name="Validated"
