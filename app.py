@@ -217,7 +217,7 @@ with tab2:
                 
                 # SCATTER PLOTS
                 st.subheader("Velocity Distributions and Acceptance Volume")
-                col_scat1, col_scat2 = st.columns(2)
+                col_scat1, col_scat2, col_scat3 = st.columns(3)
                 
                 max_points = min(4000, len(UI))
                 display_mask = np.random.choice(len(UI), max_points, replace=False)
@@ -258,6 +258,45 @@ with tab2:
                         ))
                     fig2d.update_layout(xaxis_title='Radial Velocity V (m/s)', yaxis_title='Axial Velocity U (m/s)', height=500, margin=dict(l=0, r=0, b=0, t=30))
                     st.plotly_chart(fig2d, use_container_width=True)
+
+                with col_scat3:
+                    st.markdown("### Rejection Ratio Heatmap")
+                    
+                    # 1. Define bounds avoiding extreme outliers for a clear heatmap
+                    v_min, v_max = np.percentile(VI, [1, 99])
+                    u_min, u_max = np.percentile(UI, [1, 99])
+                    
+                    # 2. Compute 2D Histograms for all particles and accepted particles
+                    bins = 25
+                    hist_total, xedges, yedges = np.histogram2d(VI, UI, bins=bins, range=[[v_min, v_max], [u_min, u_max]])
+                    hist_acc, _, _ = np.histogram2d(VI[acc], UI[acc], bins=[xedges, yedges])
+                    
+                    # 3. Calculate rejection ratio and mask empty/low-count bins to avoid noise
+                    with np.errstate(divide='ignore', invalid='ignore'):
+                        rejection_ratio = (hist_total - hist_acc) / hist_total
+                        rejection_ratio[hist_total < 5] = np.nan # Hide bins with less than 5 particles
+                        
+                    x_centers = (xedges[:-1] + xedges[1:]) / 2
+                    y_centers = (yedges[:-1] + yedges[1:]) / 2
+                    
+                    # 4. Plot Heatmap
+                    fig_heat = go.Figure(data=go.Heatmap(
+                        z=rejection_ratio.T, # Transpose needed for Plotly (y, x format)
+                        x=x_centers,
+                        y=y_centers,
+                        colorscale='YlOrRd', # Yellow (low rejection) to Red (high rejection)
+                        zmin=0, zmax=1,
+                        colorbar=dict(title='Rejection', tickformat='.0%'),
+                        hovertemplate='V: %{x:.2f} m/s<br>U: %{y:.2f} m/s<br>Rejection: %{z:.1%}<extra></extra>'
+                    ))
+                    
+                    fig_heat.update_layout(
+                        xaxis_title='Radial Velocity V (m/s)', 
+                        yaxis_title='Axial Velocity U (m/s)', 
+                        height=500, margin=dict(l=0, r=0, b=0, t=30),
+                        plot_bgcolor='rgba(240,240,240,0.5)' # Light grey background for NaN areas
+                    )
+                    st.plotly_chart(fig_heat, use_container_width=True)
 
                 # LONGITUDINAL PROFILE (WITH SUBPLOTS)
                 st.markdown("---")
