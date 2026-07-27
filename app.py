@@ -26,7 +26,7 @@ dt = st.sidebar.number_input("Interfringe spacing dt (µm)", value=98.0)
 W = st.sidebar.number_input("Slit width W (µm)", value=366.0)
 D_beam = st.sidebar.number_input("Beam diameter D_beam (µm)", value=265.0)
 gamma = st.sidebar.number_input("Scattering angle gamma (°)", value=4.5)
-ANG = st.sidebar.slider("Acceptance angle limit (°)", min_value=10, max_value=90, value=70)
+ANG = st.sidebar.slider("Acceptance angle limit (°)", min_value=10, max_value=90, value=90)
 U_min = st.sidebar.slider("Minimum mesurable velocity (m/s)", min_value=0.0, max_value=0.5, value=0.0, step=0.01)
 
 st.title("SDV Simulation - V1")
@@ -87,7 +87,7 @@ with tab1:
 
     st.subheader("Computation Resolution")
     col_r1, col_r2, col_r3 = st.columns(3)
-    with col_r1: IMAX_m1 = st.number_input("Particles per point (IMAX)", 100, 100000, 10000, step=1000)
+    with col_r1: IMAX_m1 = st.number_input("Particles per point (IMAX)", 100, 500000, 100000, step=1000)
     with col_r2: resolution = st.slider("Grid resolution (N x N)", 10, 40, 20)
     with col_r3: zdef_m1 = st.slider("Defocus z_def (µm)", 0, 400, 0, step=30)
 
