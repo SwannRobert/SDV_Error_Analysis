@@ -62,7 +62,7 @@ with tab1:
         axis_x_name = st.selectbox("X-axis variable", ['U', 'V', "u'", "v'", 'dp'], index=0)
     with col3:
         options_y = [opt for opt in ['U', 'V', "u'", "v'", 'dp'] if opt != axis_x_name]
-        axis_y_name = st.selectbox("Y-axis variable", options_y, index=1)
+        axis_y_name = st.selectbox("Y-axis variable", options_y, index=0)
 
     st.subheader("Fixed Fluid Parameters")
     col_f1, col_f2, col_f3 = st.columns(3)
