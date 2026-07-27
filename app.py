@@ -299,80 +299,80 @@ with tab2:
                     st.plotly_chart(fig_heat, use_container_width=True)
 
                 # LONGITUDINAL PROFILE (WITH SUBPLOTS)
-                st.markdown("---")
-                st.subheader("Longitudinal Error Profile (R=0)")
+                # st.markdown("---")
+                # st.subheader("Longitudinal Error Profile (R=0)")
                 
-                z_positions = [0.19, 1.19, 2.19]
-                series_axe_central = ["1", "3", "5"]
+                # z_positions = [0.19, 1.19, 2.19]
+                # series_axe_central = ["1", "3", "5"]
                 
-                err_p_U, err_p_V = [], []
-                err_p_up, err_p_vp = [], []
-                err_p_uv_cov, err_p_uv_cor = [], []
+                # err_p_U, err_p_V = [], []
+                # err_p_up, err_p_vp = [], []
+                # err_p_uv_cov, err_p_uv_cor = [], []
                 
-                for s_id in series_axe_central:
-                    sd, scdf, pm, ph, pl, pam, pah, pal = load_experimental_series(DATA_FOLDER, s_id)
-                    UI_c, VI_c, dp_c, y0_c = generate_experimental_fluid(30000, sd, scdf, pm, ph, pl, pam, pah, pal)
-                    _, _, _, acc_c = run_mode_2_zdef_sweep([zdef_single], UI_c, VI_c, dp_c, y0_c, dt=dt, W=W, gamma=gamma, D_beam=D_beam, ANG=ANG, U_min=U_min)
+                # for s_id in series_axe_central:
+                #     sd, scdf, pm, ph, pl, pam, pah, pal = load_experimental_series(DATA_FOLDER, s_id)
+                #     UI_c, VI_c, dp_c, y0_c = generate_experimental_fluid(30000, sd, scdf, pm, ph, pl, pam, pah, pal)
+                #     _, _, _, acc_c = run_mode_2_zdef_sweep([zdef_single], UI_c, VI_c, dp_c, y0_c, dt=dt, W=W, gamma=gamma, D_beam=D_beam, ANG=ANG, U_min=U_min)
                     
-                    if np.sum(acc_c) > 20:
-                        U_ct, V_ct = np.mean(UI_c), np.mean(VI_c)
-                        up_ct, vp_ct = np.std(UI_c, ddof=0), np.std(VI_c, ddof=0)
-                        cov_ct = np.mean((UI_c - U_ct) * (VI_c - V_ct))
-                        cor_ct = cov_ct / (up_ct * vp_ct + 1e-8)
+                #     if np.sum(acc_c) > 20:
+                #         U_ct, V_ct = np.mean(UI_c), np.mean(VI_c)
+                #         up_ct, vp_ct = np.std(UI_c, ddof=0), np.std(VI_c, ddof=0)
+                #         cov_ct = np.mean((UI_c - U_ct) * (VI_c - V_ct))
+                #         cor_ct = cov_ct / (up_ct * vp_ct + 1e-8)
                         
-                        U_cm, V_cm = np.mean(UI_c[acc_c]), np.mean(VI_c[acc_c])
-                        up_cm, vp_cm = np.std(UI_c[acc_c], ddof=0), np.std(VI_c[acc_c], ddof=0)
-                        cov_cm = np.mean((UI_c[acc_c] - U_cm) * (UI_c[acc_c] - V_cm))
-                        cor_cm = cov_cm / (up_cm * vp_cm + 1e-8)
+                #         U_cm, V_cm = np.mean(UI_c[acc_c]), np.mean(VI_c[acc_c])
+                #         up_cm, vp_cm = np.std(UI_c[acc_c], ddof=0), np.std(VI_c[acc_c], ddof=0)
+                #         cov_cm = np.mean((UI_c[acc_c] - U_cm) * (UI_c[acc_c] - V_cm))
+                #         cor_cm = cov_cm / (up_cm * vp_cm + 1e-8)
                         
-                        err_p_U.append(np.abs(U_cm - U_ct))
-                        err_p_V.append(np.abs(V_cm - V_ct))
-                        err_p_up.append(np.abs(up_cm - up_ct))
-                        err_p_vp.append(np.abs(vp_cm - vp_ct))
-                        err_p_uv_cov.append(np.abs(cov_cm - cov_ct))
-                        err_p_uv_cor.append(np.abs(cor_cm - cor_ct))
-                    else:
-                        err_p_U.append(np.nan)
-                        err_p_V.append(np.nan)
-                        err_p_up.append(np.nan)
-                        err_p_vp.append(np.nan)
-                        err_p_uv_cov.append(np.nan)
-                        err_p_uv_cor.append(np.nan)
+                #         err_p_U.append(np.abs(U_cm - U_ct))
+                #         err_p_V.append(np.abs(V_cm - V_ct))
+                #         err_p_up.append(np.abs(up_cm - up_ct))
+                #         err_p_vp.append(np.abs(vp_cm - vp_ct))
+                #         err_p_uv_cov.append(np.abs(cov_cm - cov_ct))
+                #         err_p_uv_cor.append(np.abs(cor_cm - cor_ct))
+                #     else:
+                #         err_p_U.append(np.nan)
+                #         err_p_V.append(np.nan)
+                #         err_p_up.append(np.nan)
+                #         err_p_vp.append(np.nan)
+                #         err_p_uv_cov.append(np.nan)
+                #         err_p_uv_cor.append(np.nan)
 
-                # Creation of the 3 subplots for appropriate unit separation
-                fig_prof = make_subplots(
-                    rows=3, cols=1, 
-                    shared_xaxes=True, 
-                    vertical_spacing=0.08,
-                    subplot_titles=("Velocity & Fluctuation Errors (m/s)", "Covariance Error (m²/s²)", "Correlation Error (Dimensionless)")
-                )
+                # # Creation of the 3 subplots for appropriate unit separation
+                # fig_prof = make_subplots(
+                #     rows=3, cols=1, 
+                #     shared_xaxes=True, 
+                #     vertical_spacing=0.08,
+                #     subplot_titles=("Velocity & Fluctuation Errors (m/s)", "Covariance Error (m²/s²)", "Correlation Error (Dimensionless)")
+                # )
                 
-                # Row 1: Velocities
-                fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_U, mode='lines+markers', name='|ΔU|', line=dict(color='blue')), row=1, col=1)
-                fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_V, mode='lines+markers', name='|ΔV|', line=dict(color='cyan')), row=1, col=1)
-                fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_up, mode='lines+markers', name="|Δu'|", line=dict(color='red', dash='dash')), row=1, col=1)
-                fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_vp, mode='lines+markers', name="|Δv'|", line=dict(color='orange', dash='dash')), row=1, col=1)
+                # # Row 1: Velocities
+                # fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_U, mode='lines+markers', name='|ΔU|', line=dict(color='blue')), row=1, col=1)
+                # fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_V, mode='lines+markers', name='|ΔV|', line=dict(color='cyan')), row=1, col=1)
+                # fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_up, mode='lines+markers', name="|Δu'|", line=dict(color='red', dash='dash')), row=1, col=1)
+                # fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_vp, mode='lines+markers', name="|Δv'|", line=dict(color='orange', dash='dash')), row=1, col=1)
                 
-                # Row 2: Covariance
-                fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_uv_cov, mode='lines+markers', name="|Δu'v'|", line=dict(color='purple', dash='dot')), row=2, col=1)
+                # # Row 2: Covariance
+                # fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_uv_cov, mode='lines+markers', name="|Δu'v'|", line=dict(color='purple', dash='dot')), row=2, col=1)
                 
-                # Row 3: Correlation
-                fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_uv_cor, mode='lines+markers', name="|ΔUV|", line=dict(color='black', dash='dot')), row=3, col=1)
+                # # Row 3: Correlation
+                # fig_prof.add_trace(go.Scatter(x=z_positions, y=err_p_uv_cor, mode='lines+markers', name="|ΔUV|", line=dict(color='black', dash='dot')), row=3, col=1)
                 
-                fig_prof.update_layout(
-                    height=700, margin=dict(l=0, r=0, b=0, t=30),
-                    legend=dict(orientation="h", yanchor="bottom", y=1.05, xanchor="right", x=1)
-                )
-                fig_prof.update_yaxes(title_text="|Error|", row=1, col=1)
-                fig_prof.update_yaxes(title_text="|Error|", row=2, col=1)
-                fig_prof.update_yaxes(title_text="|Error|", row=3, col=1)
-                fig_prof.update_xaxes(
-                    title_text="Axial Position Z (in multiples of D)", 
-                    row=3, col=1, 
-                    tickmode='array', tickvals=z_positions, ticktext=['0.19D', '1.19D', '2.19D']
-                )
+                # fig_prof.update_layout(
+                #     height=700, margin=dict(l=0, r=0, b=0, t=30),
+                #     legend=dict(orientation="h", yanchor="bottom", y=1.05, xanchor="right", x=1)
+                # )
+                # fig_prof.update_yaxes(title_text="|Error|", row=1, col=1)
+                # fig_prof.update_yaxes(title_text="|Error|", row=2, col=1)
+                # fig_prof.update_yaxes(title_text="|Error|", row=3, col=1)
+                # fig_prof.update_xaxes(
+                #     title_text="Axial Position Z (in multiples of D)", 
+                #     row=3, col=1, 
+                #     tickmode='array', tickvals=z_positions, ticktext=['0.19D', '1.19D', '2.19D']
+                # )
                 
-                st.plotly_chart(fig_prof, use_container_width=True)
+                # st.plotly_chart(fig_prof, use_container_width=True)
                 
         except Exception as e:
             st.error(f"Computation error: {e}. Check that the files {serie_id}.txt are present in the data folder.")
