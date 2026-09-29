@@ -1,3 +1,5 @@
+Accéder à l'application : https://sdverror.streamlit.app/
+
 FR
 
 Cette application Streamlit a été développée dans le cadre de mon stage de recherche de quatre mois à l'Imperial College London. Son objectif est de quantifier et visualiser les erreurs de mesure d'un instrument optique complexe, afin de fournir les données d'analyse nécessaires à la publication d'un article scientifique.
